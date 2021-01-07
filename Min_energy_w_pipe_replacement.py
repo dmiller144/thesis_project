@@ -12,10 +12,12 @@ import wntr
 # import numpy as np
 import pandas as pd
 import math
-import xlsxwriter
+# import xlsxwriter
 from openpyxl import Workbook
 from openpyxl import load_workbook
 import os
+import matplotlib as plt
+
 
 # Replacement pipe info:
 pipe_diameters = [0.025, 0.05, 0.08, 0.1, 0.125, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6] # m
@@ -46,13 +48,16 @@ max_headloss = 10 # m/km
 energy_price = 0.15 # €/kWh
 
 # Load model
-INP_file_name = 'DAWITOWN_base' # input('Enter the filename of the network you wish to process: ')
+INP_file_name = 'cwsDP1150-112' # input('Enter the filename of the network you wish to process: ')
 inp_file = f'C:/Users/dmi002/Desktop/Python WIP/thesis_project/{INP_file_name}.inp'
 wn = wntr.network.WaterNetworkModel(inp_file)
 
 # Creating Directory for results and networks
-os.makedirs(f'C:/Users/dmi002/Desktop/Python WIP/thesis_project/{INP_file_name}_results')
-os.makedirs(f'C:/Users/dmi002/Desktop/Python WIP/thesis_project/{INP_file_name}_networks')
+try:
+    os.makedirs(f'C:/Users/dmi002/Desktop/Python WIP/thesis_project/{INP_file_name}_results')
+    os.makedirs(f'C:/Users/dmi002/Desktop/Python WIP/thesis_project/{INP_file_name}_networks')
+except:
+    pass
 
 # Original Pipe diameters
 pipe_info = {}

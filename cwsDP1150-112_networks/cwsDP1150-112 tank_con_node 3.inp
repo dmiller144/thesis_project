@@ -1,6 +1,6 @@
 ; Filename: C:/Users/dmi002/Desktop/Python WIP/thesis_project/cwsDP1150-112.inp
 ; WNTR: 0.3.0
-; Created: 2021-01-07 13:26:48
+; Created: 2021-01-07 13:26:42
 [TITLE]
 Computer Workshop Water Distribution
 Topography data set 1
@@ -26,7 +26,7 @@ Question 1.1.2 - Pump Selection
 
 [TANKS]
 ;ID                              Elevation           Init Level            Min Level            Max Level             Diameter           Min Volume Volume Curve         Overflow            
- Balancing_tank          56.458999634    3.1935958862               0           10000    34.891517193               0                                             ;
+ Balancing_tank          56.205699921    3.1986656189               0           10000    34.891517193               0                                             ;
 
 [PIPES]
 ;ID                   Node1                Node2                              Length             Diameter            Roughness           Minor Loss               Status
@@ -35,14 +35,14 @@ Question 1.1.2 - Pump Selection
  4                    2                    5                               1100             500             0.5               0                 Open   ;
  5                    3                    6                                950             400             0.5               0                 Open   ;
  6                    4                    7                               1050             300             0.5               0                 Open   ;
- 7                    5                    8                                580             500             0.5               0                 Open   ;
+ 7                    5                    8                                580             300             0.5               0                 Open   ;
  8                    6                    9                                780             300             0.5               0                 Open   ;
  9                    7                    10                               590             200             0.5               0                 Open   ;
  10                   6                    7                                660             150             0.5               0                 Open   ;
- 11                   8                    9                                650             250             0.5               0                 Open   ;
+ 11                   8                    9                                650             150             0.5               0                 Open   ;
  12                   9                    10                               420             150             0.5               0                 Open   ;
- 13                   8                    11                               350             500             0.5               0                 Open   ;
- tank_connection      Balancing_tank       11                                 1            1000             0.5               0                 Open   ;
+ 13                   8                    11                               350             200             0.5               0                 Open   ;
+ tank_connection      Balancing_tank       3                                  1            1000             0.5               0                 Open   ;
 
 [PUMPS]
 ;ID                   Node1                Node2                Properties          
@@ -73,15 +73,15 @@ Factory 0.000000 2.000000 2.000000 2.000000 2.000000 2.000000
 Factory 2.000000 2.000000 2.000000 2.000000 2.000000 2.000000
 Factory 2.000000 0.000000 0.000000 0.000000 0.000000 0.000000
 
-VarSpeed 1.008531 1.016762 1.020143 1.020526 1.015377 1.010714
-VarSpeed 1.001387 0.998702 0.996836 0.998728 1.001369 1.004252
-VarSpeed 1.002486 1.001469 0.997563 0.993257 0.989278 0.985708
-VarSpeed 0.983215 0.982054 0.982216 0.984734 0.992085 1.002453
+VarSpeed 0.998266 1.003626 1.008665 1.012913 1.015001 1.014845
+VarSpeed 1.011842 1.006864 1.002753 1.000810 1.000973 1.002144
+VarSpeed 1.002715 1.002660 1.001323 0.998668 0.995269 0.991675
+VarSpeed 0.988319 0.986736 0.985902 0.986358 0.989004 0.993462
 
 [CURVES]
 ;ID         X-Value      Y-Value     
 ;PUMP: PST-HQ
- PST-HQ       269.145012    51.265587   ;
+ PST-HQ       269.145012    50.609894   ;
 
 
 [CONTROLS]
@@ -161,7 +161,7 @@ TOLERANCE            0.01
 10               1846.680000000        399.350000000
 11               1610.700000000       1205.830000000
 1                 187.030000000       1374.390000000
-Balancing_tank       1640.700000000       1235.830000000
+Balancing_tank        349.290000000        950.580000000
 
 [VERTICES]
 ;Link      X-Coord    Y-Coord   
