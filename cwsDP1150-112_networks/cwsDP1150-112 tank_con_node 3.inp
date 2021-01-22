@@ -1,6 +1,6 @@
 ; Filename: C:/Users/dmi002/Desktop/Python WIP/thesis_project/cwsDP1150-112.inp
 ; WNTR: 0.3.0
-; Created: 2021-01-07 13:26:42
+; Created: 2021-01-20 17:05:58
 [TITLE]
 Computer Workshop Water Distribution
 Topography data set 1
@@ -26,7 +26,7 @@ Question 1.1.2 - Pump Selection
 
 [TANKS]
 ;ID                              Elevation           Init Level            Min Level            Max Level             Diameter           Min Volume Volume Curve         Overflow            
- Balancing_tank          56.205699921    3.1986656189               0           10000    34.891517193               0                                             ;
+ Balancing_tank          56.205688477    3.1986732483               0           10000    34.891515563               0                                             ;
 
 [PIPES]
 ;ID                   Node1                Node2                              Length             Diameter            Roughness           Minor Loss               Status
@@ -81,7 +81,7 @@ VarSpeed 0.988319 0.986736 0.985902 0.986358 0.989004 0.993462
 [CURVES]
 ;ID         X-Value      Y-Value     
 ;PUMP: PST-HQ
- PST-HQ       269.145012    50.609894   ;
+ PST-HQ       269.145000    50.609882   ;
 
 
 [CONTROLS]
@@ -90,7 +90,7 @@ VarSpeed 0.988319 0.986736 0.985902 0.986358 0.989004 0.993462
 
 [ENERGY]
 GLOBAL EFFICIENCY      75.0000
-GLOBAL PRICE           0.1500
+GLOBAL PRICE           0.4200
 DEMAND CHARGE          0.0000
 
 [EMITTERS]
@@ -144,7 +144,7 @@ UNBALANCED           CONTINUE 10
 PATTERN              Domestic            
 DEMAND MULTIPLIER    1.5
 EMITTER EXPONENT     0.5
-QUALITY              NONE                
+QUALITY              AGE                 
 DIFFUSIVITY          1
 TOLERANCE            0.01
 

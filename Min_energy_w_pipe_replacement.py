@@ -16,39 +16,34 @@ import math
 from openpyxl import Workbook
 from openpyxl import load_workbook
 import os
-import matplotlib as plt
+# import matplotlib as plt
 
+# Pipe Cost Table for T/L
+pipecost_dict = {"Pipe_Diameter\n(mm)": [63.0, 75.0, 90.0, 110.0, 125.0, 140.0, 160.0, 200.0, 225.0, 250.0, 315.0, 355.0, 400.0, 450.0, 500.0, 600.0, 700.0, 800.0],
+           "Pipe_Material": ['PVC', 'PVC', 'PVC', 'PVC', 'PVC', 'PVC', 'PVC', 'PVC', 'PVC', 'PVC', 'PVC', 'PVC', 'Ductile Iron', 'Ductile Iron', 'Ductile Iron', 'Ductile Iron', 'Ductile Iron', 'Ductile Iron'],
+           "Supply_and_Installed_Cost\n($ USD/m)": [14.0, 17.0, 21.0, 28.0, 34.0, 41.0, 52.0, 79.0, 100.0, 120.0, 190.0, 240.0, 253.0, 295.0, 348.0, 462.0, 590.0, 732.0]
+           }
+pipecost_df = pd.DataFrame.from_dict(pipecost_dict)
 
-# Replacement pipe info:
-pipe_diameters = [0.025, 0.05, 0.08, 0.1, 0.125, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6] # m
+pipe_diameters = pipecost_df["Pipe_Diameter\n(mm)"].tolist()
 pipe_roughness = 0.5
 
-# Costs Table for PE pipes per m
-D_25 = 30.0 # Note I had to include this so the code could find it and index to the next size up.
-D_50 = 45.0
-D_80 = 72.0
-D_100 = 90.0
-D_125 = 110.0 # This had to be included as well. 
-D_150 = 135.0
-D_200 = 180.0
-D_250 = 225.0
-D_300 = 270.0
-D_400 = 360.0
-D_500 = 450.0
-D_600 = 540.0
-
-costs = [30.0, 45.0, 72.0, 90.0, 110.0, 135.0, 180.0, 225.0, 270.0, 360.0, 450.0, 540.0]
-cost_table = {'Diameter': pipe_diameters, 'Cost': costs}
-cost_df = pd.DataFrame.from_dict(cost_table)
-
 # Global inputs
-
 min_p_req = 20
-max_headloss = 10 # m/km
-energy_price = 0.15 # €/kWh
+max_headloss = 20 # m/km
+energy_price = 0.42 # € /kWh
+
+# Annual O&M as % of investment
+OM_pipes = 0.5
+OM_pumps = 2.0
+OM_tanks = 0.8
+
+# Loan conditions
+Repay = 20.0 # years
+Interest = 6.0 # annual interest rate on %
 
 # Load model
-INP_file_name = 'cwsDP1150-112' # input('Enter the filename of the network you wish to process: ')
+INP_file_name = 'Dili_half' # input('Enter the filename of the network you wish to process: ')
 inp_file = f'C:/Users/dmi002/Desktop/Python WIP/thesis_project/{INP_file_name}.inp'
 wn = wntr.network.WaterNetworkModel(inp_file)
 
@@ -61,14 +56,9 @@ except:
 
 # Original Pipe diameters
 pipe_info = {}
-pipe_names = []
-original_diameter = []
-new_diameter = []
-pipe_length = []
-for pipe_name in wn.pipe_name_list:
-    pipe_names.append(pipe_name)
-    original_diameter.append(wn.get_link(pipe_name).diameter)
-    pipe_length.append(wn.get_link(pipe_name).length)
+pipe_names = [wn.get_link(pipe).name for pipe in wn.pipe_name_list]
+original_diameter = [wn.get_link(pipe).diameter * 1000 for pipe in wn.pipe_name_list]
+pipe_length = [wn.get_link(pipe).length for pipe in wn.pipe_name_list]
 
 tank_con_length = 1
 tank_con_diameter = 1
@@ -78,23 +68,33 @@ pipe_length.append(tank_con_length)
 pipe_info = {'Pipe_name': pipe_names,'Original_Diameter': original_diameter, 'Length': pipe_length}
 pipe_df = pd.DataFrame.from_dict(pipe_info)
 
+# Setting Water Quality Option
+wn.options.quality.parameter = 'AGE'
+original_duration = wn.options.time.duration
+
 # Setting global energy options
 wn.options.energy.global_efficiency = 75.0
-wn.options.energy.global_price = energy_price/(3.6*10**6) #converting €0.15 per kWh into € per joules 
+wn.options.energy.global_price = energy_price/(3.6*10**6) #converting € 0.15 per kWh into €  per joules 
 wn.options.energy.global_pattern = None 
 
 reservoirs = wn.reservoir_name_list
 junctions = wn.junction_name_list
 
 # Running Sim
+wn.options.time.duration = 7 * 24 * 3600
 sim = wntr.sim.EpanetSimulator(wn)
 results = sim.run_sim()
 
+# Water Age
+water_age = (results.node['quality'].loc[:, junctions].max()/3600).to_list()
+water_age_rounded = [round(elem,2) for elem in water_age]
+wn.options.time.duration = original_duration
+
 # Calculating required balancing tank volume
-avg_flow = results.node['demand'].loc[0:23*3600, reservoirs].sum().sum()/-24
-demand = results.node['demand'].loc[0:23*3600, reservoirs].sum(axis=1)*-1
+avg_flow = wntr.metrics.hydraulic.average_expected_demand(wn).sum()
+demand = wntr.metrics.hydraulic.expected_demand(wn, end_time=wn.options.time.duration - wn.options.time.hydraulic_timestep).sum(axis=1)
 cumulative = (avg_flow - demand).cumsum()
-tank_volume = (cumulative.max() + abs(cumulative.min()))*3600
+tank_volume = (cumulative.max() + abs(cumulative.min())) * wn.options.time.hydraulic_timestep
 
 # Establishing fixed tank parameters
 tank_min_lvl = 2.0
@@ -130,23 +130,25 @@ for j in junctions:
     ws.title = j
 wb.save(f'{INP_file_name}_results/{INP_file_name}_results.xlsx')
 
-# Creating Summary DataFrame
-summary = {"Node": [],
-              "Parameter": [],
-              "Value": [],
-              "Units": []
-        }
-summary_df = pd.DataFrame.from_dict(summary)
+# Lists to store results
+(node_list, Duty_Head_list, Duty_Flow_list, ActAvgFlow_list, Cost_list, Energy_list, Tank_elev_list,
+Tank_height_list, Tank_volume_list, Min_p_list, Critical_hr_list, Critical_node_list, Critical_pipes_list, 
+Pump_inv_cost_list, Tank_inv_cost_list, Pipe_replacement_cost_list, Total_inv_cost_list, Maintenance_list,
+Annuity_list, Total_annual_exp_list) = ([] for i in range(20))
 
 junction = ['a01', 'a02'] # This line replaces junctions for testing the code
+# wn.write_inpfile(f'{INP_file_name} test tank_con_node {j}.inp', version=2.2)
+# j = 'R_TIBAR_1'
 for j in junctions:
     # Resetting Pipe diameters to original
     pipe_df.set_index('Pipe_name', inplace=True)
     for pipe_name in wn.pipe_name_list:
         # pipe_name = 'p03'
         pipe = wn.get_link(pipe_name)
-        pipe.diameter = pipe_df['Original_Diameter'].loc[pipe_name]
+        pipe.diameter = pipe_df['Original_Diameter'].loc[pipe_name] / 1000
     pipe_df = pipe_df.reset_index()
+    
+    
     
     # Adding Balancing Tank
     wn.add_tank('Balancing_tank', elevation=wn.get_node(j).elevation, init_level=tank_init_lvl, min_level=0, 
@@ -168,23 +170,30 @@ for j in junctions:
     min_pumped_flow = results.link['flowrate'].loc[:, wn.pump_name_list[0]].min()
     
     # Critical Pipes
-    new_diameter.clear()
-    df = results.link['headloss']
+    df = results.link['headloss'].loc[:, wn.pipe_name_list]
     min_p = results.node['pressure'].loc[:, junctions].min().min()
     critical_pipes_times = df[df > max_headloss].dropna(axis=1, how='all').dropna(how='all')
     critical_pipes = critical_pipes_times.columns.to_list()
-    
+    # wn.write_inpfile(f'{INP_file_name} test2 tank_con_node {j}.inp', version=2.2)
+    # [0.025, 0.05, 0.08, 0.1, 0.125, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6]
+    # diam = wn.get_link('p03').diameter
     while len(critical_pipes) >= 1:
         for pipe_name in critical_pipes:
             # pipe_name = 'p03'
             pipe = wn.get_link(pipe_name)
-            pipe.diameter = pipe_diameters[pipe_diameters.index(pipe.diameter)+1]
+            indexer = min(range(len(pipe_diameters)), key=lambda i: abs(pipe_diameters[i] - (pipe.diameter * 1000)))
+            if pipe_diameters[indexer] <= (pipe.diameter * 1000):
+                if indexer == len(pipe_diameters)-1:
+                    indexer = indexer
+                else:
+                    indexer +=1
+            pipe.diameter = pipe_diameters[indexer] / 1000
             # print(pipe_name, 'is now diameter:', pipe.diameter, 'm')    
             pipe.roughness = pipe_roughness  
         sim = wntr.sim.EpanetSimulator(wn)
         results = sim.run_sim()
         # Critical Pipes
-        df = results.link['headloss']
+        df = results.link['headloss'].loc[:, wn.pipe_name_list]
         min_p = results.node['pressure'].loc[:, junctions].min().min()
         critical_pipes_times = df[df > max_headloss].dropna(axis=1, how='all').dropna(how='all')
         critical_pipes = critical_pipes_times.columns.to_list()
@@ -270,7 +279,7 @@ for j in junctions:
     sim = wntr.sim.EpanetSimulator(wn)
     results = sim.run_sim()
     min_p = results.node['pressure'].loc[:, junctions].min().min()
-    counter += 1 ; # print(counter) 
+    counter += 1  # print(counter) 
     
     # Adjusting tank elevation up
     wn.get_node('Balancing_tank').elevation = wn.get_node('Balancing_tank').elevation + results.node['pressure'].loc[:, 'Balancing_tank'].min() - tank_min_lvl
@@ -288,21 +297,28 @@ for j in junctions:
     # Critical Pipes
     sim = wntr.sim.EpanetSimulator(wn)
     results = sim.run_sim()
-    df = results.link['headloss']
+    df = results.link['headloss'].loc[:, wn.pipe_name_list]
     min_p = results.node['pressure'].loc[:, junctions].min().min()
     critical_pipes_times = df[df > max_headloss].dropna(axis=1, how='all').dropna(how='all')
     critical_pipes = critical_pipes_times.columns.to_list()
     
     # Adding new pipe info and calculating replacement costs
-    for pipe_name in wn.pipe_name_list:
-        new_diameter.append(wn.get_link(pipe_name).diameter)
+    new_diameter = [wn.get_link(pipe).diameter * 1000 for pipe in wn.pipe_name_list]
     
-    pipe_df['New_Diameter'] = new_diameter
-    pipe_df = pipe_df.merge(cost_df, left_on='New_Diameter', right_on='Diameter', how='left')
-    pipe_df['Replacement_Cost'] = pipe_df['Length'] * pipe_df['Cost'].where(pipe_df['Original_Diameter'] != pipe_df['New_Diameter'])
-    pipe_df = pipe_df.drop('Diameter', 1)
+    
+    pipe_df["New_Diameter\n(mm)"] = new_diameter
+    pipe_df = pipe_df.merge(pipecost_df, left_on="New_Diameter\n(mm)", right_on="Pipe_Diameter\n(mm)", how='left')
+    # pipe_df = pipe_df.sort_values(by="New_Diameter\n(mm)")
+    # pipecost_df = pipecost_df.sort_values(by="Pipe_Diameter\n(mm)")
+    # pipe_df = pd.merge_asof(pipe_df, pipecost_df, left_on="New_Diameter\n(mm)", right_on="Pipe_Diameter\n(mm)", direction="nearest")
+    # print(type(pipe_df['Original_Diameter'].iloc[5]), '\n', type(pipe_df["New_Diameter\n(mm)"].iloc[5]))
+    
+    pipe_df['Replacement_Cost'] = pipe_df['Length'] * pipe_df["Supply_and_Installed_Cost\n($ USD/m)"].where(pipe_df['Original_Diameter'] != pipe_df["New_Diameter\n(mm)"])
+    pipe_df['Total_Cost'] = pipe_df['Length'] * pipe_df["Supply_and_Installed_Cost\n($ USD/m)"]
+    pipe_df.to_clipboard()
+    pipe_df = pipe_df.drop("Pipe_Diameter\n(mm)", 1)
+    pipe_df = pipe_df.drop("Pipe_Material", 1)
     pipe_df.set_index('Pipe_name', inplace=True)
-    
     
     # Tank Cost calculation
     tank_inv_cost = 300_000 + 150 * tank_volume + 3 * tank_height * tank_volume
@@ -312,21 +328,31 @@ for j in junctions:
     
     # Total Investment cost
     total_inv_cost = tank_inv_cost + pump_inv_cost + pipe_df['Replacement_Cost'].sum()
-        
+    
+    #Maintenance Cost Calculation
+    maintenance = (OM_pipes/100)*pipe_df['Total_Cost'].sum() + (OM_pumps/100)*pump_inv_cost + (OM_tanks/100)*tank_inv_cost
+    pipe_df = pipe_df.drop("Total_Cost", 1)
+    # Annuity Calculation
+    Annuity = (Interest/100*(1+Interest/100)**Repay)/((1+Interest/100)**Repay-1)*total_inv_cost
+    
+    # Total Annual Expenditure Cost
+    Total_annual_exp = maintenance + pump_cost[0:24].sum()[0]*3600*365 + Annuity
+    
+    
     # Outputs to console
     print('\nProgress:', counter, '/', len(junctions), 'Nodes Processed')
     print(f'Summary of pumping energy for tank connected to node {j}:')
-    print('Pump Parameters: Duty Flow:', round(Duty_Flow*1000, 2),'L/s',  'Duty Head:', round(Duty_Head, 2), 'm', f'Pump Cost: €{round(pump_inv_cost,2):,}')
+    print('Pump Parameters: Duty Flow:', round(Duty_Flow*1000, 2),'L/s',  'Duty Head:', round(Duty_Head, 2), 'm', f'Pump Cost: € {round(pump_inv_cost,2):,}')
     print('Actual average pumped flow:', round(pump_flows.mean(), 2), 'L/s')
-    print('Cost €', round(pump_cost[0:24].sum()[0]*3600, 2), 'per day')
+    print('Cost € ', round(pump_cost[0:24].sum()[0]*3600, 2), 'per day')
     print('Energy:', f'{round(pump_energy[0:24].sum()[0]/1000, 2):,}', 'kWh/day')
     print('Minimum Pressure:', round(min_p, 2), 'mwc','at time:', results.node['pressure'].loc[:, str(results.node['pressure'].loc[:, junctions].min().idxmin())].idxmin()/3600 ,
           'At node:', results.node['pressure'].loc[:, junctions].min().idxmin())
-    print('Tank Elevation:', round(tank_elev, 2), 'm', 'Tank Height above ground:', round(tank_height, 2), 'm', 'Tank Volume:', f'{round(tank_volume, 2):,}', 'm3', 'Tank Cost: €', f'{round(tank_inv_cost, 2):,}')
-    print(f"Cost of replacing pipes over unit headloss threshold: €{pipe_df['Replacement_Cost'].sum():,}")
+    print('Tank Elevation:', round(tank_elev, 2), 'm', 'Tank Height above ground:', round(tank_height, 2), 'm', 'Tank Volume:', f'{round(tank_volume, 2):,}', 'm3', 'Tank Cost: € ', f'{round(tank_inv_cost, 2):,}')
+    print(f"Cost of replacing pipes over unit headloss threshold: € {pipe_df['Replacement_Cost'].sum():,.2f}")
     print(pipe_df.dropna(subset=['Replacement_Cost']))
-    print('Pipes which exceed headloss > 10m/km:', critical_pipes)
-    print(f'Total Investment Cost for Pump, Replaced Pipes and Tank: €{round(total_inv_cost,2):,}')
+    print(f'Pipes which exceed headloss >{max_headloss}', critical_pipes)
+    print(f'Total Investment Cost for Pump, Replaced Pipes and Tank: € {round(total_inv_cost,2):,}')
     
     # Individual nodal outputs to Excel
     wb = load_workbook(filename = f'{INP_file_name}_results/{INP_file_name}_results.xlsx')
@@ -343,7 +369,7 @@ for j in junctions:
     ws['A4'] = 'Duty Head' ; ws['B4'] = round(Duty_Head, 2) ; ws['C4'] = 'm'
     ws['A5'] = 'Duty Flow' ; ws['B5'] = round(Duty_Flow*1000, 2) ; ws['C5'] = 'L/s'
     ws['A6'] = 'Actual average pumped flow:' ; ws['B6'] = round(pump_flows.mean(), 2) ; ws['C6'] = 'L/s'
-    ws['A7'] = 'Cost:' ; ws['B7'] = f'€{pump_cost[0:24].sum()[0]*3600:,.2f}' ; ws['C7'] = 'Euro per day'
+    ws['A7'] = 'Cost:' ; ws['B7'] = f'€ {pump_cost[0:24].sum()[0]*3600:,.2f}' ; ws['C7'] = 'Euro per day'
     ws['A8'] = 'Energy:' ; ws['B8'] = round(pump_energy[0:24].sum()[0]/1000, 2) ; ws['C8'] = 'kWh/day'
     
     ws['A10'] = 'Balancing Tank Parameters'
@@ -358,42 +384,43 @@ for j in junctions:
     ws['E7'] = 'Critical Pipes' ; ws['F7'] = str(critical_pipes) ; ws['G7'] = 'Unit headloss >10m/km'
     
     ws['E10'] = 'Investment Cost Summary'
-    ws['E11'] = 'Pump Cost' ; ws['F11'] = f'€{pump_inv_cost:,.2f}'
-    ws['E12'] = 'Tank Cost' ; ws['F12'] = f'€{tank_inv_cost:,.2f}'
-    ws['E13'] = 'Total Pipe Replacement Cost' ; ws['F13'] = f"€{pipe_df['Replacement_Cost'].sum():,.2f}" 
-    ws['E14'] = 'Total Investment Cost' ; ws['F14'] = f'€{total_inv_cost:,.2f}'
+    ws['E11'] = 'Pump Cost' ; ws['F11'] = f'€ {pump_inv_cost:,.2f}'
+    ws['E12'] = 'Tank Cost' ; ws['F12'] = f'€ {tank_inv_cost:,.2f}'
+    ws['E13'] = 'Total Pipe Replacement Cost' ; ws['F13'] = f"€ {pipe_df['Replacement_Cost'].sum():,.2f}" 
+    ws['E14'] = 'Total Investment Cost' ; ws['F14'] = f'€ {total_inv_cost:,.2f}'
     
     ws['A16'] = 'Table of individual pipes to be replaced'
        
     wb.save(f'{INP_file_name}_results/{INP_file_name}_results.xlsx')
     
     # Summary page output to excel
-    parameters = ['for', 'Duty Head', 'Duty Flow', 'Actual average pumped flow:', 'Cost:', 'Energy:', 'Tank Elevation', 
-                  'Tank height above ground', 'Tank volume', 'Minimum Pressure', 'Critical Hour', 'Critical Node', 'Critical Pipes',
-                  'Pump Cost', 'Tank Cost', 'Total Pipe Replacement Cost', 'Total Investment Cost', '---']
+    node_list.append(j)
+    Duty_Head_list.append(round(Duty_Head,2))
+    Duty_Flow_list.append(round(Duty_Flow*1000,2))
+    ActAvgFlow_list.append(round(pump_flows.mean(),2))
+    Cost_list.append(f'€ {pump_cost[0:24].sum()[0]*3600:,.2f}')
+    Energy_list.append(round(pump_energy[0:24].sum()[0]/1000,2))
+    Tank_elev_list.append(round(tank_elev,2))
+    Tank_height_list.append(round(tank_height, 2))
+    Tank_volume_list.append(round(tank_volume, 2))
+    Min_p_list.append(round(min_p, 2))
+    Critical_hr_list.append(results.node['pressure'].loc[:, str(results.node['pressure'].loc[:, junctions].min().idxmin())].idxmin()/3600)
+    Critical_node_list.append(results.node['pressure'].loc[:, junctions].min().idxmin())
+    Critical_pipes_list.append(str(critical_pipes))
+    Pump_inv_cost_list.append(f'€ {pump_inv_cost:,.2f}')
+    Tank_inv_cost_list.append(f'€ {tank_inv_cost:,.2f}')
+    Pipe_replacement_cost_list.append(f"€ {pipe_df['Replacement_Cost'].sum():,.2f}")
+    Total_inv_cost_list.append(f'€ {total_inv_cost:,.2f}')
+    Maintenance_list.append(f'€ {maintenance:,.2f}')  
+    Annuity_list.append(f'€ {Annuity:,.2f}')
+    Total_annual_exp_list.append(f'€ {Total_annual_exp:,.2f}')
     
-    values = ['node: ', round(Duty_Head,2), round(Duty_Flow*1000,2), round(pump_flows.mean(),2), f'€{pump_cost[0:24].sum()[0]*3600:,.2f}', 
-              round(pump_energy[0:24].sum()[0]/1000,2), round(tank_elev,2), round(tank_height, 2), round(tank_volume, 2), round(min_p, 2),
-              results.node['pressure'].loc[:, str(results.node['pressure'].loc[:, junctions].min().idxmin())].idxmin()/3600,
-              results.node['pressure'].loc[:, junctions].min().idxmin(), str(critical_pipes), f'€{pump_inv_cost:,.2f}',
-              f'€{tank_inv_cost:,.2f}', f"€{pipe_df['Replacement_Cost'].sum():,.2f}" , f'€{total_inv_cost:,.2f}', '---']
     
-    units = [j, 'm', 'L/s', 'L/s', 'Europerday', 'kWh/day', 'm above sea level', 'm above nearest node', 'm3', 'mwc', 'hrs', 'Node',
-             'Unit headloss >10m/km', 'Capital Investment', 'Capital Investment', 'Capital Investment', 'Grand Total', '---']
-    
-    node_summary = {"Node": ['Summary'] + [j]*16 + ['---'],
-              "Parameter":  parameters,
-              "Value":      values,
-              "Units":      units
-        }
-    node_summary_df = pd.DataFrame.from_dict(node_summary)
-    summary_df = summary_df.append(node_summary_df, ignore_index=True)
-        
     # Write EPANET.inp file
     wn.write_inpfile(f'{INP_file_name}_networks/{INP_file_name} tank_con_node {j}.inp', version=2.2)
     
     # Resetting Pipe DataFrame
-    pipe_df = pipe_df.drop(['New_Diameter', 'Cost', 'Replacement_Cost'], 1)
+    pipe_df = pipe_df.drop(["New_Diameter\n(mm)", "Supply_and_Installed_Cost\n($ USD/m)", 'Replacement_Cost'], 1)
     pipe_df = pipe_df.reset_index()
     # print(pipe_df)
     
@@ -402,6 +429,30 @@ writer = pd.ExcelWriter(f'{INP_file_name}_results/{INP_file_name}_results.xlsx',
 writer.book = wb
 writer.sheets = dict((ws.title, ws) for ws in wb.worksheets)
 
+# Creating Summary DataFrame from summary dict{} 
+summary = {"Node": node_list,
+              "Max Water Age\n(h)": water_age_rounded,
+              "Duty Head\n(m)": Duty_Head_list,
+              "Duty Flow\n(L/s)": Duty_Flow_list,
+              "Actual average pumped flow\n(L/s)": ActAvgFlow_list,
+              "Cost\n(€ /day)": Cost_list,
+              "Energy\n(kWh/day)": Energy_list,
+              "Tank Elevation\n(metres above sea level)": Tank_elev_list,
+              "Tank height above ground\n(metres above nearest node)": Tank_height_list,
+              "Tank Volume\n(m3)": Tank_volume_list,
+              "Minimum Pressure\n(mwc)": Min_p_list,
+              "Critical Hour\n(hrs)": Critical_hr_list,
+              "Critical Node": Critical_node_list,
+              "Critical Pipes\n(list)": Critical_pipes_list,
+              "Pump Investment Cost\n(Capital Investment)": Pump_inv_cost_list,
+              "Tank Investment Cost\n(Capital Investment)": Tank_inv_cost_list,
+              "Total Pipe Replacement Cost\n(Capital Investment)": Pipe_replacement_cost_list,
+              "Total Investment Cost\n(Grand Total)": Total_inv_cost_list,
+              "Maintenance Cost\n(pa)": Maintenance_list,
+              "Annuity\n(pa)": Annuity_list,
+              "Total Annual Expenditure": Total_annual_exp_list
+        }
+summary_df = pd.DataFrame.from_dict(summary)
 summary_df.to_excel(writer, sheet_name='Summary', startrow=3)
 wb.save(f'{INP_file_name}_results/{INP_file_name}_results.xlsx')
 

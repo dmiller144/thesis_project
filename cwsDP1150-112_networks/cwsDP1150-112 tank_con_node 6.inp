@@ -1,6 +1,6 @@
 ; Filename: C:/Users/dmi002/Desktop/Python WIP/thesis_project/cwsDP1150-112.inp
 ; WNTR: 0.3.0
-; Created: 2021-01-07 13:26:44
+; Created: 2021-01-20 17:06:01
 [TITLE]
 Computer Workshop Water Distribution
 Topography data set 1
@@ -26,21 +26,21 @@ Question 1.1.2 - Pump Selection
 
 [TANKS]
 ;ID                              Elevation           Init Level            Min Level            Max Level             Diameter           Min Volume Volume Curve         Overflow            
- Balancing_tank          54.421630096    3.1071472168               0           10000    34.891517193               0                                             ;
+ Balancing_tank          55.231486511     3.194896698               0           10000    34.891515563               0                                             ;
 
 [PIPES]
 ;ID                   Node1                Node2                              Length             Diameter            Roughness           Minor Loss               Status
  2                    2                    3                                430             500             0.5               0                 Open   ;
  3                    3                    4                                600             400             0.5               0                 Open   ;
  4                    2                    5                               1100             500             0.5               0                 Open   ;
- 5                    3                    6                                950             500             0.5               0                 Open   ;
+ 5                    3                    6                                950             450             0.5               0                 Open   ;
  6                    4                    7                               1050             300             0.5               0                 Open   ;
  7                    5                    8                                580             300             0.5               0                 Open   ;
  8                    6                    9                                780             300             0.5               0                 Open   ;
  9                    7                    10                               590             200             0.5               0                 Open   ;
- 10                   6                    7                                660             200             0.5               0                 Open   ;
- 11                   8                    9                                650             200             0.5               0                 Open   ;
- 12                   9                    10                               420             200             0.5               0                 Open   ;
+ 10                   6                    7                                660             160             0.5               0                 Open   ;
+ 11                   8                    9                                650             225             0.5               0                 Open   ;
+ 12                   9                    10                               420             160             0.5               0                 Open   ;
  13                   8                    11                               350             200             0.5               0                 Open   ;
  tank_connection      Balancing_tank       6                                  1            1000             0.5               0                 Open   ;
 
@@ -73,15 +73,15 @@ Factory 0.000000 2.000000 2.000000 2.000000 2.000000 2.000000
 Factory 2.000000 2.000000 2.000000 2.000000 2.000000 2.000000
 Factory 2.000000 0.000000 0.000000 0.000000 0.000000 0.000000
 
-VarSpeed 1.003452 1.009945 1.014466 1.017407 1.016011 1.013242
-VarSpeed 1.008772 1.003568 1.000102 0.998837 1.000011 1.002018
-VarSpeed 1.001523 1.001074 0.998949 0.996060 0.992458 0.988803
-VarSpeed 0.985582 0.984344 0.983927 0.985584 0.991115 0.998115
+VarSpeed 1.007149 1.014534 1.018501 1.020149 1.016816 1.011641
+VarSpeed 1.005768 1.001038 0.997650 0.997793 1.000291 1.003026
+VarSpeed 1.001506 1.000566 0.996855 0.993559 0.990068 0.986436
+VarSpeed 0.983121 0.982413 0.982672 0.985627 0.992748 1.001411
 
 [CURVES]
 ;ID         X-Value      Y-Value     
 ;PUMP: PST-HQ
- PST-HQ       269.145012    49.404598   ;
+ PST-HQ       269.145000    50.346142   ;
 
 
 [CONTROLS]
@@ -90,7 +90,7 @@ VarSpeed 0.985582 0.984344 0.983927 0.985584 0.991115 0.998115
 
 [ENERGY]
 GLOBAL EFFICIENCY      75.0000
-GLOBAL PRICE           0.1500
+GLOBAL PRICE           0.4200
 DEMAND CHARGE          0.0000
 
 [EMITTERS]
@@ -144,7 +144,7 @@ UNBALANCED           CONTINUE 10
 PATTERN              Domestic            
 DEMAND MULTIPLIER    1.5
 EMITTER EXPONENT     0.5
-QUALITY              NONE                
+QUALITY              AGE                 
 DIFFUSIVITY          1
 TOLERANCE            0.01
 

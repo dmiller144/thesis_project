@@ -1,6 +1,6 @@
 ; Filename: C:/Users/dmi002/Desktop/Python WIP/thesis_project/cwsDP1150-112.inp
 ; WNTR: 0.3.0
-; Created: 2021-01-07 13:26:44
+; Created: 2021-01-20 17:06:00
 [TITLE]
 Computer Workshop Water Distribution
 Topography data set 1
@@ -26,7 +26,7 @@ Question 1.1.2 - Pump Selection
 
 [TANKS]
 ;ID                              Elevation           Init Level            Min Level            Max Level             Diameter           Min Volume Volume Curve         Overflow            
- Balancing_tank          56.998394775    3.1169433594               0           10000    34.891517193               0                                             ;
+ Balancing_tank          56.934376526    3.1965675354               0           10000    34.891515563               0                                             ;
 
 [PIPES]
 ;ID                   Node1                Node2                              Length             Diameter            Roughness           Minor Loss               Status
@@ -73,15 +73,15 @@ Factory 0.000000 2.000000 2.000000 2.000000 2.000000 2.000000
 Factory 2.000000 2.000000 2.000000 2.000000 2.000000 2.000000
 Factory 2.000000 0.000000 0.000000 0.000000 0.000000 0.000000
 
-VarSpeed 1.003452 1.009945 1.014466 1.017407 1.016011 1.013242
-VarSpeed 1.008772 1.003568 1.000102 0.998837 1.000011 1.002018
-VarSpeed 1.001523 1.001074 0.998949 0.996060 0.992458 0.988803
-VarSpeed 0.985582 0.984344 0.983927 0.985584 0.991115 0.998115
+VarSpeed 1.003154 1.009847 1.014032 1.016377 1.014941 1.011962
+VarSpeed 1.008844 1.004532 1.000181 0.999374 1.001002 1.003100
+VarSpeed 1.002376 1.001761 0.999033 0.996131 0.992813 0.989270
+VarSpeed 0.985931 0.983870 0.983525 0.985309 0.990549 0.997786
 
 [CURVES]
 ;ID         X-Value      Y-Value     
 ;PUMP: PST-HQ
- PST-HQ       269.145012    51.638111   ;
+ PST-HQ       269.145000    51.459442   ;
 
 
 [CONTROLS]
@@ -90,7 +90,7 @@ VarSpeed 0.985582 0.984344 0.983927 0.985584 0.991115 0.998115
 
 [ENERGY]
 GLOBAL EFFICIENCY      75.0000
-GLOBAL PRICE           0.1500
+GLOBAL PRICE           0.4200
 DEMAND CHARGE          0.0000
 
 [EMITTERS]
@@ -144,7 +144,7 @@ UNBALANCED           CONTINUE 10
 PATTERN              Domestic            
 DEMAND MULTIPLIER    1.5
 EMITTER EXPONENT     0.5
-QUALITY              NONE                
+QUALITY              AGE                 
 DIFFUSIVITY          1
 TOLERANCE            0.01
 

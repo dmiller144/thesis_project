@@ -1,6 +1,6 @@
 ; Filename: C:/Users/dmi002/Desktop/Python WIP/thesis_project/DAWITOWN_base.inp
 ; WNTR: 0.3.0
-; Created: 2021-01-07 12:43:11
+; Created: 2021-01-21 10:28:15
 [TITLE]
 TRIFTOWN - Present Demand - final alternative before placing PRV
 Gravity supply, without zoning, multiplier 2.0, 3700 new consumers in E, hotel 200 beds
@@ -71,20 +71,20 @@ Gravity supply, without zoning, multiplier 2.0, 3700 new consumers in E, hotel 2
 
 [TANKS]
 ;ID                              Elevation           Init Level            Min Level            Max Level             Diameter           Min Volume Volume Curve         Overflow            
- Balancing_tank          33.427791595    3.8387069702               0           10000    21.628435917               0                                             ;
+ Balancing_tank          34.029987335    3.8533782959               0           10000    21.628434309               0                                             ;
 
 [PIPES]
 ;ID                   Node1                Node2                              Length             Diameter            Roughness           Minor Loss               Status
  p02                  a01                  a02                              657             400            0.25               0                 Open   ;
- p03                  a02                  a03                              380             100             0.5               0                 Open   ;
+ p03                  a02                  a03                              380              90             0.5               0                 Open   ;
  p04                  a02                  a04                              371             400            0.25               0                 Open   ;
  p05                  a03                  a05                              325              80             0.5               0                 Open   ;
  p06                  a04                  a06                              180             400            0.25               0                 Open   ;
- p07                  a06                  a05                              249             100             0.5               0                 Open   ;
+ p07                  a06                  a05                              249              90             0.5               0                 Open   ;
  p08                  a06                  a07                              125             400            0.25               0                 Open   ;
- p09                  a07                  a08                              256             125             0.5               0                 Open   ;
+ p09                  a07                  a08                              256             140             0.5               0                 Open   ;
  p10                  a08                  a09                              200             100             0.5               0                 Open   ;
- p11                  a08                  a10                              111             100             0.5               0                 Open   ;
+ p11                  a08                  a10                              111             110             0.5               0                 Open   ;
  p12                  a09                  a11                              106              80             0.5               0                 Open   ;
  p13                  a10                  a11                              215              80             0.5               0                 Open   ;
  p14                  a10                  a12                              369              80             0.5               0                 Open   ;
@@ -92,26 +92,26 @@ Gravity supply, without zoning, multiplier 2.0, 3700 new consumers in E, hotel 2
  p16                  a12                  a13                              168              25             0.5               0                 Open   ;
  p17                  a07                  a14                              390             400            0.25               0                 Open   ;
  p18                  a15                  a09                              420             100             0.5               0                 Open   ;
- p19                  a14                  a15                              459             125             0.5               0                 Open   ;
+ p19                  a14                  a15                              459             110             0.5               0                 Open   ;
  p20                  a14                  a16                              153             400            0.25               0                 Open   ;
  p21                  a16                  a17                              168             250             0.5               0                 Open   ;
- p22                  a17                  a18                              291             250             0.5               0                 Open   ;
- p23                  a16                  a19                              295             400             0.5               0                 Open   ;
- p24                  a17                  a20                              255             100             0.5               0                 Open   ;
- p25                  a18                  a21                              206             250             0.5               0                 Open   ;
- p26                  a19                  a20                              202             300             0.5               0                 Open   ;
- p27                  a20                  a21                              289             300             0.5               0                 Open   ;
+ p22                  a17                  a18                              291             225             0.5               0                 Open   ;
+ p23                  a16                  a19                              295             315             0.5               0                 Open   ;
+ p24                  a17                  a20                              255             140             0.5               0                 Open   ;
+ p25                  a18                  a21                              206             225             0.5               0                 Open   ;
+ p26                  a19                  a20                              202             250             0.5               0                 Open   ;
+ p27                  a20                  a21                              289             315             0.5               0                 Open   ;
  p28                  a19                  b01                              372             300            0.25               0                 Open   ;
  p29                  b01                  b02                              376             200            0.25               0                 Open   ;
  p30                  b02                  b03                              248             200            0.25               0                 Open   ;
  p31                  b03                  b04                              278             150            0.25               0                 Open   ;
  p32                  b04                  b05                              270             125            0.25               0                 Open   ;
- p33                  b06                  b07                              106             100             0.5               0                 Open   ;
- p34                  b07                  b08                              290              80             0.5               0                 Open   ;
+ p33                  b06                  b07                              106             110             0.5               0                 Open   ;
+ p34                  b07                  b08                              290              63             0.5               0                 Open   ;
  p35                  b10                  b11                              439             100             0.5               0                 Open   ;
- p36                  b11                  b12                              269              80             0.5               0                 Open   ;
- p37                  b08                  b05                              333              80             0.5               0                 Open   ;
- p38                  b05                  b12                              380             100             0.5               0                 Open   ;
+ p36                  b11                  b12                              269              75             0.5               0                 Open   ;
+ p37                  b08                  b05                              333              63             0.5               0                 Open   ;
+ p38                  b05                  b12                              380             110             0.5               0                 Open   ;
  p39                  b03                  b06                              380             125               1               0                 Open   ;
  p40                  b03                  b09                              289             125               1               0                 Open   ;
  p41                  b09                  b10                              112             125               1               0                 Open   ;
@@ -127,7 +127,7 @@ Gravity supply, without zoning, multiplier 2.0, 3700 new consumers in E, hotel 2
  p51                  d06                  d07                              368              50             0.5               0                 Open   ;
  p52                  d06                  d08                              256              80            0.25               0                 Open   ;
  p53                  c02                  c03                              177             100             0.5               0                 Open   ;
- p54                  c03                  c04                              177             100             0.5               0                 Open   ;
+ p54                  c03                  c04                              177              90             0.5               0                 Open   ;
  p55                  c04                  c07                              159              80             0.5               0                 Open   ;
  p56                  c07                  c06                              349             100             0.5               0                 Open   ;
  p57                  c05                  c06                              108             125             0.5               0                 Open   ;
@@ -142,7 +142,7 @@ Gravity supply, without zoning, multiplier 2.0, 3700 new consumers in E, hotel 2
  p66                  e06                  e07                              280              50            0.25               0                 Open   ;
  p67                  e07                  e08                              282              50            0.25               0                 Open   ;
  p68                  e01                  c05                              366             200             0.5               0                 Open   ;
- p69                  c05                  f01                              452             200             0.5               0                 Open   ;
+ p69                  c05                  f01                              452             160             0.5               0                 Open   ;
  tank_connection      Balancing_tank       a21                                1            1000             0.5               0                 Open   ;
 
 [PUMPS]
@@ -370,15 +370,15 @@ Hotel 1.700000 1.650000 1.450000 1.230000 1.120000 0.890000
 Hotel 1.340000 1.280000 1.000000 0.880000 0.650000 1.200000
 Hotel 1.430000 1.330000 1.260000 1.080000 0.870000 0.700000
 
-VarSpeed 1.002225 1.007108 1.011645 1.015694 1.018159 1.016800
-VarSpeed 1.011903 1.005972 1.002681 1.001429 1.001327 1.002021
-VarSpeed 1.002598 1.001379 0.999082 0.995524 0.990437 0.985032
-VarSpeed 0.981867 0.981760 0.984008 0.987927 0.992539 0.997300
+VarSpeed 1.005608 1.010195 1.013853 1.017111 1.017676 1.014720
+VarSpeed 1.006009 1.002494 1.001447 1.000366 1.000605 1.001788
+VarSpeed 1.001576 1.000223 0.998084 0.993836 0.987103 0.982630
+VarSpeed 0.981612 0.982250 0.986232 0.991007 0.995973 1.000655
 
 [CURVES]
 ;ID         X-Value      Y-Value     
 ;PUMP: HQ2
- HQ2          102.807303    40.093403   ;
+ HQ2          102.807304    40.961996   ;
 
 ;EFFICIENCY: EFF2
  EFF2          10.000000    20.000000   ;
@@ -394,7 +394,7 @@ VarSpeed 0.981867 0.981760 0.984008 0.987927 0.992539 0.997300
 
 [ENERGY]
 GLOBAL EFFICIENCY      75.0000
-GLOBAL PRICE           0.1500
+GLOBAL PRICE           0.4200
 DEMAND CHARGE          0.0000
 
 [EMITTERS]
@@ -448,7 +448,7 @@ UNBALANCED           CONTINUE 10
 PATTERN              Domestic            
 DEMAND MULTIPLIER    2
 EMITTER EXPONENT     0.5
-QUALITY              NONE                
+QUALITY              AGE                 
 DIFFUSIVITY          1
 TOLERANCE            0.01
 

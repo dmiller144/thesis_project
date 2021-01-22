@@ -1,6 +1,6 @@
 ; Filename: C:/Users/dmi002/Desktop/Python WIP/thesis_project/cwsDP1150-112.inp
 ; WNTR: 0.3.0
-; Created: 2021-01-07 13:26:42
+; Created: 2021-01-20 17:05:58
 [TITLE]
 Computer Workshop Water Distribution
 Topography data set 1
@@ -26,7 +26,7 @@ Question 1.1.2 - Pump Selection
 
 [TANKS]
 ;ID                              Elevation           Init Level            Min Level            Max Level             Diameter           Min Volume Volume Curve         Overflow            
- Balancing_tank           57.24932785    3.1128311157               0           10000    34.891517193               0                                             ;
+ Balancing_tank          57.249320221     3.112827301               0           10000    34.891515563               0                                             ;
 
 [PIPES]
 ;ID                   Node1                Node2                              Length             Diameter            Roughness           Minor Loss               Status
@@ -73,15 +73,15 @@ Factory 0.000000 2.000000 2.000000 2.000000 2.000000 2.000000
 Factory 2.000000 2.000000 2.000000 2.000000 2.000000 2.000000
 Factory 2.000000 0.000000 0.000000 0.000000 0.000000 0.000000
 
-VarSpeed 0.994307 0.999045 1.004322 1.009292 1.013472 1.015342
-VarSpeed 1.014637 1.010094 1.005550 1.002112 1.001346 1.001920
+VarSpeed 0.994307 0.999045 1.004322 1.009293 1.013472 1.015342
+VarSpeed 1.014637 1.010095 1.005550 1.002112 1.001346 1.001920
 VarSpeed 1.003267 1.003558 1.003356 1.001393 0.998224 0.994690
 VarSpeed 0.991144 0.988085 0.986717 0.986135 0.986913 0.989833
 
 [CURVES]
 ;ID         X-Value      Y-Value     
 ;PUMP: PST-HQ
- PST-HQ       269.145012    51.128055   ;
+ PST-HQ       269.145000    51.128042   ;
 
 
 [CONTROLS]
@@ -90,7 +90,7 @@ VarSpeed 0.991144 0.988085 0.986717 0.986135 0.986913 0.989833
 
 [ENERGY]
 GLOBAL EFFICIENCY      75.0000
-GLOBAL PRICE           0.1500
+GLOBAL PRICE           0.4200
 DEMAND CHARGE          0.0000
 
 [EMITTERS]
@@ -144,7 +144,7 @@ UNBALANCED           CONTINUE 10
 PATTERN              Domestic            
 DEMAND MULTIPLIER    1.5
 EMITTER EXPONENT     0.5
-QUALITY              NONE                
+QUALITY              AGE                 
 DIFFUSIVITY          1
 TOLERANCE            0.01
 
