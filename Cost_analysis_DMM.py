@@ -31,7 +31,7 @@ euro_usd_exchange_rate = 1.22
 energy_price = 0.42 # USD/kWh
 
 # Import a water network model
-inp_file = 'Dili_LHS_main_noPRVs tank_con_node R_TIBAR_2.inp' # Choose INP file
+inp_file = 'C:/Users/dmi002/Desktop/Python WIP/Dili_WDN_Analysis/Dili_Master_Plan.inp' # Choose INP file
 wn = wntr.network.WaterNetworkModel(inp_file) # Read the INP file into the memory (index wn)
 
 
@@ -107,7 +107,7 @@ print(f'Total Valve Investment Cost: USD ${total_valve_inv_cost:,.2f}')
 
 #TANKS
 tank_elevations = [wn.get_node(tank).elevation for tank in tanks]
-tank_heights_above_ground = [18.09] # Manunal input required here
+tank_heights_above_ground = [5, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 5, 0] # Manunal input required here. optimised list: [5, 0, 0, 0, 10, 0, 0, 0, 0, 0, 18.1, 18.1, 18.1, 18.1, 18.1] 
 # tank = wn.tank_name_list[0]
 # maxx = results.node['pressure'].loc[:, tank].min()
 tank_volumes = [(math.pi/4 * wn.get_node(tank).diameter ** 2 *(results.node['pressure'].loc[:, tank].max() - results.node['pressure'].loc[:, tank].min())) for tank in tanks]
@@ -160,8 +160,9 @@ Annuity = (Interest/100*(1+Interest/100)**Repay)/((1+Interest/100)**Repay-1)*gra
 
 print (f"The total annual loan repayment is: USD ${Annuity:,.2f}") 
 
+total_annual_exp = Annuity + Total_OM + annual_pump_cost
 
-
+print (f"The total annual expenditure is: USD ${total_annual_exp:,.2f}") 
 
 demand_df = results.node['demand'].iloc[0:24, :].sum()
 demand_df.to_clipboard()

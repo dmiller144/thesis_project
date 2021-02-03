@@ -1,6 +1,6 @@
 ; Filename: C:/Users/dmi002/Desktop/Python WIP/thesis_project/Hanoi-Modified.inp
 ; WNTR: 0.3.0
-; Created: 2021-01-29 13:37:26
+; Created: 2021-01-29 13:37:20
 [TITLE]
 
 [JUNCTIONS]
@@ -44,7 +44,7 @@
 
 [TANKS]
 ;ID                              Elevation           Init Level            Min Level            Max Level             Diameter           Min Volume Volume Curve         Overflow            
- Balancing_tank                    30    53.467769623               0           10000    55.995296769               0                                             ;
+ Balancing_tank          68.873226166    2.4858131409               0           10000    55.995296769               0                                             ;
 
 [PIPES]
 ;ID                   Node1                Node2                              Length             Diameter            Roughness           Minor Loss               Status
@@ -57,11 +57,11 @@
  7                    7                    8                                850            1016             130               0                 Open   ;
  8                    8                    9                                850            1016             130               0                 Open   ;
  9                    9                    10                               800            1016             130               0                 Open   ;
- 10                   10                   11                               950             762             0.5               0                 Open   ;
- 11                   11                   12                              1200             762             0.5               0                 Open   ;
+ 10                   10                   11                               950             762             130               0                 Open   ;
+ 11                   11                   12                              1200             762             130               0                 Open   ;
  12                   12                   13                              3500           609.6             130               0                 Open   ;
- 13                   10                   14                               800           406.4             0.5               0                 Open   ;
- 14                   14                   15                               500           406.4             0.5               0                 Open   ;
+ 13                   10                   14                               800           406.4             130               0                 Open   ;
+ 14                   14                   15                               500             450             0.5               0                 Open   ;
  15                   15                   16                               550           304.8             0.5               0                 Open   ;
  16                   17                   16                              2730           406.4             130               0                 Open   ;
  17                   17                   18                              1750             508             130               0                 Open   ;
@@ -82,7 +82,7 @@
  32                   30                   31                               150           304.8             130               0                 Open   ;
  33                   32                   31                               860           406.4             130               0                 Open   ;
  34                   25                   32                               950             508             130               0                 Open   ;
- tank_connection      Balancing_tank       13                                 1            1500             0.5               0                 Open   ;
+ tank_connection      Balancing_tank       9                                  1            1500             0.5               0                 Open   ;
 
 [PUMPS]
 ;ID                   Node1                Node2                Properties          
@@ -107,15 +107,15 @@ Domestic 1.080000 1.100000 1.220000 1.350000 1.420000 1.450000
 Domestic 1.100000 0.900000 0.750000 0.650000 0.730000 1.000000
 Domestic 1.200000 1.470000 1.450000 1.400000 1.200000 0.700000
 
-VarSpeed 1.275008 1.329158 1.385084 1.617007 1.463824 1.100546
-VarSpeed 0.901192 0.893810 0.796228 0.527797 0.088582 nan
-VarSpeed 0.881572 0.973818 1.164141 1.331703 1.198918 0.913416
-VarSpeed 0.814862 nan nan 0.271080 0.801596 1.239423
+VarSpeed 1.031574 1.041623 1.052239 1.086064 1.071143 1.031139
+VarSpeed 0.990777 0.987170 0.972039 0.958899 0.949995 0.942999
+VarSpeed 0.969192 0.998167 1.023784 1.046873 1.034187 0.993682
+VarSpeed 0.967379 0.944406 0.939967 0.937772 0.949266 1.024054
 
 [CURVES]
 ;ID         X-Value      Y-Value     
 ;PUMP: PUMP1
- PUMP1       1107.780000    86.090607   ;
+ PUMP1       1107.780000    53.179882   ;
 
 
 [CONTROLS]
@@ -217,7 +217,7 @@ TOLERANCE            0.01
 32               3405.370000000       7990.650000000
 33               5294.960000000       4570.160000000
 1                5251.170000000       4485.980000000
-Balancing_tank       6180.700000000       8990.280000000
+Balancing_tank       7290.510000000       8020.650000000
 
 [VERTICES]
 ;Link      X-Coord    Y-Coord   

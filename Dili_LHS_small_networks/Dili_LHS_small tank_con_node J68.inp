@@ -1,6 +1,6 @@
 ; Filename: C:/Users/dmi002/Desktop/Python WIP/thesis_project/Dili_LHS_small.inp
 ; WNTR: 0.3.0
-; Created: 2021-01-21 15:06:04
+; Created: 2021-01-25 10:39:36
 [TITLE]
 
 [JUNCTIONS]
@@ -10,11 +10,11 @@
 
 [RESERVOIRS]
 ;ID                                   Head                  Pattern
- 20                              53.5                            ;
+ 20                              57.5                            ;
 
 [TANKS]
 ;ID                              Elevation           Init Level            Min Level            Max Level             Diameter           Min Volume Volume Curve         Overflow            
- Balancing_tank          98.095630646     2.261592865               0           10000     8.025756959               0                                             ;
+ Balancing_tank          98.096019745    2.2681045532               0           10000     8.025756959               0                                             ;
 
 [PIPES]
 ;ID                   Node1                Node2                              Length             Diameter            Roughness           Minor Loss               Status
@@ -1369,7 +1369,7 @@ VarSpeed 1.000000
 [CURVES]
 ;ID         X-Value      Y-Value     
 ;PUMP: PUMP1
- PUMP1         63.237450    50.658339   ;
+ PUMP1         63.237450    46.653309   ;
 
 
 [CONTROLS]

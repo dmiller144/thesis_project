@@ -1,4 +1,4 @@
-  Page 1                                    Fri Jan 22 14:24:31 2021
+  Page 1                                    Fri Jan 29 13:37:26 2021
 
   ******************************************************************
   *                           E P A N E T                          *
@@ -7,13 +7,15 @@
   *                         Version 2.2                            *
   ******************************************************************
   
-  Analysis begun Fri Jan 22 14:24:31 2021
+  Error 202: illegal numeric value nan in [PATTERNS] section:
+  VarSpeed 0.901192 0.893810 0.796228 0.527797 0.088582 nan
 
-  WARNING: Negative pressures at 6:00:00 hrs.
+  Error 202: illegal numeric value nan in [PATTERNS] section:
+  VarSpeed 0.814862 nan nan 0.271080 0.801596 1.239423
+
+  Error 200: one or more errors in input file0 hrs.
    
-  WARNING: Negative pressures at 7:00:00 hrs.
-   
-  WARNING: Negative pressures at 8:00:00 hrs.
+  WARNING: Negative pressures at 9:00:00 hrs.
    
   WARNING: Negative pressures at 10:00:00 hrs.
    
@@ -21,4 +23,9 @@
    
   WARNING: Negative pressures at 12:00:00 hrs.
    
-  Analysis ended Fri Jan 22 14:24:31 2021
+  WARNING: Negative pressures at 19:00:00 hrs.
+   
+  WARNING: Negative pressures at 20:00:00 hrs.
+   
+  WARNING: Negative pressures at 21:00:00 hrs.
+   
