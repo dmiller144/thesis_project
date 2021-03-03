@@ -1,6 +1,6 @@
 ; Filename: C:/Users/dmi002/Desktop/Python WIP/thesis_project/Dili_LHS_main_noPRVsSCOPEv3.inp
 ; WNTR: 0.3.0
-; Created: 2021-02-15 13:01:19
+; Created: 2021-02-15 13:00:33
 [TITLE]
 
 [JUNCTIONS]
@@ -29,7 +29,7 @@
 
 [TANKS]
 ;ID                              Elevation           Init Level            Min Level            Max Level             Diameter           Min Volume Volume Curve         Overflow            
- Balancing_tank          314.80111694    2.1435546875               0           10000    16.003134427               0                                             ;
+ Balancing_tank          311.78463745    2.1435852051               0           10000    16.003134427               0                                             ;
 
 [PIPES]
 ;ID                   Node1                Node2                              Length             Diameter            Roughness           Minor Loss               Status
@@ -42,17 +42,17 @@
  P30                  J71                  J72                           903.77           198.2             0.5               0                 Open   ;
  P31                  J72                  J73                           574.11           220.4             0.5               0                 Open   ;
  P32                  J66                  J73                           814.97           277.6           0.005               0                 Open   ;
- P169                 R_TIBAR_2            R_TIBAR_3                     2068.2             355             0.5               0                 Open   ;
+ P169                 R_TIBAR_2            R_TIBAR_3                     2068.2           277.6           0.005               0                 Open   ;
  P170                 R_TIBAR_4            prv2                          518.84             400             0.5               0                 Open   ;
- P171                 J139                 J69                           503.75            54.9             0.5               0                 Open   ;
+ P171                 J139                 J69                           503.75             315             0.5               0                 Open   ;
  P172                 prv3                 J139                         1509.32             400             0.5               0                 Open   ;
- P175                 ETA_COMORO           R_TIBAR_1                      764.9             355             0.5               0                 Open   ;
- P176                 J67                  TIBAR_PORT                   1103.27           123.4             0.5               0                 Open   ;
+ P175                 ETA_COMORO           R_TIBAR_1                      764.9           277.6           0.005               0                 Open   ;
+ P176                 J67                  TIBAR_PORT                   1103.27           123.4           0.005               0                 Open   ;
  18                   R_TIBAR_3            R_TIBAR_4                      26.53             400             0.5               0                 Open   ;
- 1                    R_TIBAR_2            R_TIBAR_1                         60             355             0.5               0                 Open   ;
+ 1                    R_TIBAR_2            R_TIBAR_1                         60           277.6           0.005               0                 Open   ;
  2                    prv2                 J139                               1             400             0.5               0                 Open   ;
  3                    prv3                 J73                                1             400             0.5               0                 Open   ;
- tank_connection      Balancing_tank       prv3                               1            1500             0.5               0                 Open   ;
+ tank_connection      Balancing_tank       J69                                1            1500             0.5               0                 Open   ;
 
 [PUMPS]
 ;ID                   Node1                Node2                Properties          
@@ -1402,7 +1402,7 @@ VarSpeed 1.000000
 [CURVES]
 ;ID         X-Value      Y-Value     
 ;PUMP: pmpTibar
- pmpTibar     256.388272   124.831798   ;
+ pmpTibar     256.388272   126.472996   ;
 
 
 [CONTROLS]
@@ -1489,7 +1489,7 @@ R_TIBAR_1      777191.240000000    9047893.779999999
 prv2           775850.110000000    9049408.340000000
 prv3           774556.400000000    9050205.840000000
 ETA__COMORO     778043.360000000    9047780.539999999
-Balancing_tank     774586.400000000    9050235.840000000
+Balancing_tank     776364.690000000    9049347.350000000
 
 [VERTICES]
 ;Link      X-Coord    Y-Coord   

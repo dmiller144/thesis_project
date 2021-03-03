@@ -1,0 +1,223 @@
+  Page 1                                    Thu Feb 11 14:00:38 2021
+
+  ******************************************************************
+  *                           E P A N E T                          *
+  *                   Hydraulic and Water Quality                  *
+  *                   Analysis for Pipe Networks                   *
+  *                         Version 2.2                            *
+  ******************************************************************
+  
+  Analysis begun Thu Feb 11 14:00:38 2021
+
+  WARNING: Negative pressures at 0:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 0:00:00 hrs.
+   
+  WARNING: Negative pressures at 0:18:39 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 0:18:39 hrs.
+   
+  WARNING: Negative pressures at 1:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 1:00:00 hrs.
+   
+  WARNING: Negative pressures at 2:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 2:00:00 hrs.
+   
+  WARNING: Negative pressures at 3:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 3:00:00 hrs.
+   
+  WARNING: Negative pressures at 4:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 4:00:00 hrs.
+   
+  WARNING: Negative pressures at 4:03:12 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 4:03:12 hrs.
+   
+  WARNING: Negative pressures at 5:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 5:00:00 hrs.
+   
+  WARNING: Negative pressures at 6:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 6:00:00 hrs.
+   
+  WARNING: Negative pressures at 7:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 7:00:00 hrs.
+  WARNING: FCV V_CULAU open but cannot deliver flow at 7:00:00 hrs.
+   
+  WARNING: Negative pressures at 8:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 8:00:00 hrs.
+  WARNING: FCV V_CULAU open but cannot deliver flow at 8:00:00 hrs.
+   
+  WARNING: Negative pressures at 8:26:03 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 8:26:03 hrs.
+  WARNING: FCV V_CULAU open but cannot deliver flow at 8:26:03 hrs.
+   
+  WARNING: Negative pressures at 9:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 9:00:00 hrs.
+   
+  WARNING: Negative pressures at 10:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 10:00:00 hrs.
+   
+  WARNING: Negative pressures at 11:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 11:00:00 hrs.
+   
+  WARNING: Negative pressures at 12:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 12:00:00 hrs.
+   
+  WARNING: Negative pressures at 13:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 13:00:00 hrs.
+   
+  WARNING: Negative pressures at 14:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 14:00:00 hrs.
+   
+  WARNING: Negative pressures at 15:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 15:00:00 hrs.
+   
+  WARNING: Negative pressures at 15:11:16 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 15:11:16 hrs.
+  WARNING: Pump PUMP2 closed because cannot deliver head at 15:11:16 hrs.
+  WARNING: Pump PUMP3 closed because cannot deliver head at 15:11:16 hrs.
+  WARNING: Node J1 disconnected at 15:11:16 hrs
+  WARNING: Node J6 disconnected at 15:11:16 hrs
+  WARNING: Node J7 disconnected at 15:11:16 hrs
+  WARNING: Node J8 disconnected at 15:11:16 hrs
+  WARNING: Node J9 disconnected at 15:11:16 hrs
+  WARNING: Node J10 disconnected at 15:11:16 hrs
+  WARNING: Node J11 disconnected at 15:11:16 hrs
+  WARNING: Node J12 disconnected at 15:11:16 hrs
+  WARNING: Node J13 disconnected at 15:11:16 hrs
+  WARNING: Node J14 disconnected at 15:11:16 hrs
+  WARNING: 48 additional nodes disconnected at 15:11:16 hrs
+  WARNING: System disconnected because of Link 43
+   
+  WARNING: Negative pressures at 16:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 16:00:00 hrs.
+  WARNING: Pump PUMP2 open but exceeds maximum flow at 16:00:00 hrs.
+   
+  WARNING: Negative pressures at 17:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 17:00:00 hrs.
+   
+  WARNING: Negative pressures at 17:00:04 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 17:00:04 hrs.
+  WARNING: Pump PUMP3 closed because cannot deliver head at 17:00:04 hrs.
+  WARNING: Node J1 disconnected at 17:00:04 hrs
+  WARNING: Node J6 disconnected at 17:00:04 hrs
+  WARNING: Node J7 disconnected at 17:00:04 hrs
+  WARNING: Node J8 disconnected at 17:00:04 hrs
+  WARNING: Node J9 disconnected at 17:00:04 hrs
+  WARNING: Node J10 disconnected at 17:00:04 hrs
+  WARNING: Node J11 disconnected at 17:00:04 hrs
+  WARNING: Node J12 disconnected at 17:00:04 hrs
+  WARNING: Node J13 disconnected at 17:00:04 hrs
+  WARNING: Node J14 disconnected at 17:00:04 hrs
+  WARNING: 48 additional nodes disconnected at 17:00:04 hrs
+  WARNING: System disconnected because of Link 43
+   
+  WARNING: Negative pressures at 18:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 18:00:00 hrs.
+   
+  WARNING: Negative pressures at 19:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 19:00:00 hrs.
+   
+  WARNING: Negative pressures at 19:31:05 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 19:31:05 hrs.
+  WARNING: Pump PUMP2 closed because cannot deliver head at 19:31:05 hrs.
+  WARNING: Pump PUMP3 closed because cannot deliver head at 19:31:05 hrs.
+  WARNING: Node J1 disconnected at 19:31:05 hrs
+  WARNING: Node J6 disconnected at 19:31:05 hrs
+  WARNING: Node J7 disconnected at 19:31:05 hrs
+  WARNING: Node J8 disconnected at 19:31:05 hrs
+  WARNING: Node J9 disconnected at 19:31:05 hrs
+  WARNING: Node J10 disconnected at 19:31:05 hrs
+  WARNING: Node J11 disconnected at 19:31:05 hrs
+  WARNING: Node J12 disconnected at 19:31:05 hrs
+  WARNING: Node J13 disconnected at 19:31:05 hrs
+  WARNING: Node J14 disconnected at 19:31:05 hrs
+  WARNING: 48 additional nodes disconnected at 19:31:05 hrs
+  WARNING: System disconnected because of Link 43
+   
+  WARNING: Negative pressures at 20:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 20:00:00 hrs.
+  WARNING: Pump PUMP2 open but exceeds maximum flow at 20:00:00 hrs.
+   
+  WARNING: Negative pressures at 20:22:39 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 20:22:39 hrs.
+  WARNING: Pump PUMP2 closed because cannot deliver head at 20:22:39 hrs.
+  WARNING: Pump PUMP3 closed because cannot deliver head at 20:22:39 hrs.
+  WARNING: Node J1 disconnected at 20:22:39 hrs
+  WARNING: Node J6 disconnected at 20:22:39 hrs
+  WARNING: Node J7 disconnected at 20:22:39 hrs
+  WARNING: Node J8 disconnected at 20:22:39 hrs
+  WARNING: Node J9 disconnected at 20:22:39 hrs
+  WARNING: Node J10 disconnected at 20:22:39 hrs
+  WARNING: Node J11 disconnected at 20:22:39 hrs
+  WARNING: Node J12 disconnected at 20:22:39 hrs
+  WARNING: Node J13 disconnected at 20:22:39 hrs
+  WARNING: Node J14 disconnected at 20:22:39 hrs
+  WARNING: 48 additional nodes disconnected at 20:22:39 hrs
+  WARNING: System disconnected because of Link 43
+   
+  WARNING: Negative pressures at 21:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 21:00:00 hrs.
+  WARNING: Pump PUMP2 open but exceeds maximum flow at 21:00:00 hrs.
+   
+  WARNING: Negative pressures at 21:29:04 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 21:29:04 hrs.
+  WARNING: Pump PUMP2 closed because cannot deliver head at 21:29:04 hrs.
+  WARNING: Pump PUMP3 closed because cannot deliver head at 21:29:04 hrs.
+  WARNING: Node J1 disconnected at 21:29:04 hrs
+  WARNING: Node J6 disconnected at 21:29:04 hrs
+  WARNING: Node J7 disconnected at 21:29:04 hrs
+  WARNING: Node J8 disconnected at 21:29:04 hrs
+  WARNING: Node J9 disconnected at 21:29:04 hrs
+  WARNING: Node J10 disconnected at 21:29:04 hrs
+  WARNING: Node J11 disconnected at 21:29:04 hrs
+  WARNING: Node J12 disconnected at 21:29:04 hrs
+  WARNING: Node J13 disconnected at 21:29:04 hrs
+  WARNING: Node J14 disconnected at 21:29:04 hrs
+  WARNING: 48 additional nodes disconnected at 21:29:04 hrs
+  WARNING: System disconnected because of Link 43
+   
+  WARNING: Negative pressures at 22:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 22:00:00 hrs.
+  WARNING: Pump PUMP2 open but exceeds maximum flow at 22:00:00 hrs.
+   
+  WARNING: Negative pressures at 22:27:24 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 22:27:24 hrs.
+  WARNING: Pump PUMP2 closed because cannot deliver head at 22:27:24 hrs.
+  WARNING: Pump PUMP3 closed because cannot deliver head at 22:27:24 hrs.
+  WARNING: Node J1 disconnected at 22:27:24 hrs
+  WARNING: Node J6 disconnected at 22:27:24 hrs
+  WARNING: Node J7 disconnected at 22:27:24 hrs
+  WARNING: Node J8 disconnected at 22:27:24 hrs
+  WARNING: Node J9 disconnected at 22:27:24 hrs
+  WARNING: Node J10 disconnected at 22:27:24 hrs
+  WARNING: Node J11 disconnected at 22:27:24 hrs
+  WARNING: Node J12 disconnected at 22:27:24 hrs
+  WARNING: Node J13 disconnected at 22:27:24 hrs
+  WARNING: Node J14 disconnected at 22:27:24 hrs
+  WARNING: 48 additional nodes disconnected at 22:27:24 hrs
+  WARNING: System disconnected because of Link 43
+   
+  WARNING: Negative pressures at 23:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 23:00:00 hrs.
+  WARNING: Pump PUMP2 open but exceeds maximum flow at 23:00:00 hrs.
+   
+  WARNING: Negative pressures at 23:39:56 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 23:39:56 hrs.
+  WARNING: Pump PUMP2 closed because cannot deliver head at 23:39:56 hrs.
+  WARNING: Pump PUMP3 closed because cannot deliver head at 23:39:56 hrs.
+  WARNING: Node J1 disconnected at 23:39:56 hrs
+  WARNING: Node J6 disconnected at 23:39:56 hrs
+  WARNING: Node J7 disconnected at 23:39:56 hrs
+  WARNING: Node J8 disconnected at 23:39:56 hrs
+  WARNING: Node J9 disconnected at 23:39:56 hrs
+  WARNING: Node J10 disconnected at 23:39:56 hrs
+  WARNING: Node J11 disconnected at 23:39:56 hrs
+  WARNING: Node J12 disconnected at 23:39:56 hrs
+  WARNING: Node J13 disconnected at 23:39:56 hrs
+  WARNING: Node J14 disconnected at 23:39:56 hrs
+  WARNING: 48 additional nodes disconnected at 23:39:56 hrs
+  WARNING: System disconnected because of Link 43
+   
+  WARNING: Negative pressures at 24:00:00 hrs.
+  WARNING: FCV V_CENTRAL open but cannot deliver flow at 24:00:00 hrs.
+  WARNING: Pump PUMP2 open but exceeds maximum flow at 24:00:00 hrs.
+   
+  Analysis ended Thu Feb 11 14:00:38 2021
